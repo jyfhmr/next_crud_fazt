@@ -8,4 +8,6 @@ export default function Page(props) {
       Home
     </div>
   )
+
+  
 }
