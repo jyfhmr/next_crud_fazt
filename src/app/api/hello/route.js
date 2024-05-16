@@ -1,6 +1,9 @@
 import {NextResponse} from "next/server"
+import {pool} from "@/app/libs/mysql"
+export async function GET(){
 
-export function GET(){
+    const result = await pool.query("SELECT NOW()")
+    console.log(result)
 
-return NextResponse.json({mensaje:"jajaj"})
+return NextResponse.json({message: result[0]["NOW()"]})
 }

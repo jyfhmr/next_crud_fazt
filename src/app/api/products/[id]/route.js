@@ -7,3 +7,7 @@ export function GET(){
 export function DELETE(){
     return NextResponse.json("eliminando un producto")
 }
+
+export function PUT(){
+    return NextResponse.json("eliminando un producto")
+}
