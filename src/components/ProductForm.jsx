@@ -25,17 +25,37 @@ function ProductForm() {
   useEffect(()=>{
        if(params.id ){
         console.log("cargando datos")
-        axios.get("/api/products")
+        axios.get("/api/products/"+params.id).then(res =>{
+          console.log(res)
+
+          setProduct({
+            name: res.data.name,
+            price: res.data.price,
+            description: res.data.description
+          })
+
+        })
        }
   },[])
 
   const handleSubmit = async (e) =>{
   e.preventDefault()
+
+  if(params.id){
+
+    const result = await axios.put("/api/products/"+params.id,product)
+    console.log(result)
+    router.refresh()
+    router.push("/products")
+    return
+  }
+
   console.log(product)
 
   const res = await axios.post("/api/products", product)
   console.log(res.data)
   form.current.reset()
+  router.refresh()
   router.push("/products")
   }
 
@@ -54,7 +74,8 @@ function ProductForm() {
         type="text"
         placeholder="name"
         onChange={handleChange}
-        className="shadow appearance-none border rounded w-full py-2 px-3"
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
+        value = {product.name}
       />
 
       <label
@@ -68,7 +89,8 @@ function ProductForm() {
         type="text"
         placeholder="00.00"
         onChange={handleChange}
-        className="shadow appearance-none border rounded w-full py-2 px-3"
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
+        value = {product.price}
       />
 
       <label
@@ -83,7 +105,8 @@ function ProductForm() {
         type="text"
         placeholder="descripcion"
         onChange={handleChange}
-        className="shadow appearance-none border rounded w-full py-2 px-3"
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
+        value = {product.description}
       />
 
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bopy-2 px-4 rounded">

@@ -56,6 +56,7 @@ export async function DELETE(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
+    console.log("editandoo")
     const data = await request.json();
     const result = await conn.query("UPDATE products SET ? WHERE id = ?", [
       data,
